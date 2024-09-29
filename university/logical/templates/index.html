@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Chain</title>
+</head>
+<body>
+    <h1>Логическая цепочка</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+
+    {% if result %}
+        <h2>Результат:</h2>
+        <ul>
+            {% for condition, value in result.items %}
+                <li>{{ condition }} = {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if error %}
+        <h2>Ошибка ввода данных.</h2>
+    {% endif %}
+
+    <p>
+    <button type="submit" >
+        <a href="{% url "home" %}">Заново</a>
+    </button>
+</body>
+</html>
