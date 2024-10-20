@@ -4,39 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logical Chain</title>
+    
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
 </head>
 <body>
-    <h1>Логическая цепочка</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="text-center">Логическая цепочка</h1>
+        
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Выводим форму без дополнительных фильтров -->
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
 
-    {% if result %}
-        <h2>Прямой вывод:</h2>
-        <ul>
-            {% for condition, value in result.items %}
-                <li>{{ condition }} = {{ value }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% if error %}
-        <h2>Ошибка ввода данных.</h2>
-    {% endif %}
+        {% if result %}
+            <h2 class="mt-4">Прямой вывод:</h2>
+            <ul class="list-group">
+                {% for condition, value in result.items %}
+                    <li class="list-group-item">{{ condition }} = {{ value }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        {% if error %}
+            <div class="alert alert-danger mt-4">Ошибка ввода данных.</div>
+        {% endif %}
 
-    {% if reverse_result %}
-    <h2>Обратный вывод:</h2>
-    <ul>
-        {% for key, value in reverse_result.items %}
-            <li>{{ key }} = {{ value }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        {% if reverse_result %}
+            <h2 class="mt-4">Обратный вывод:</h2>
+            <ul class="list-group">
+                {% for key, value in reverse_result.items %}
+                    <li class="list-group-item">{{ key }} = {{ value }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-    <p>
-    <button type="submit" >
-        <a href="{% url "home" %}">Заново</a>
-    </button>
+        <div class="mt-4">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Заново</a>
+        </div>
+    </div>
+    
+    {% bootstrap_javascript %}
 </body>
 </html>

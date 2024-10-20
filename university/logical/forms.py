@@ -1,7 +1,5 @@
 from django import forms
-
 import os
-
 
 def load_rules(filename):
     rules = []
@@ -19,7 +17,6 @@ def load_rules(filename):
                 rules.append(rule)
     return rules
 
-
 rules = load_rules(os.path.join(os.path.dirname(__file__), 'rules.txt'))
 condition = []
 value = []
@@ -29,7 +26,14 @@ for i in range(0, len(rules), 1):
 for i in range(0, len(rules), 2):
     condition.append((rules[i][0], rules[i][0]))
 
-
 class LogicChainForm(forms.Form):
-    initial_condition = forms.ChoiceField(label='Объект', choices=condition)
-    initial_value = forms.ChoiceField(label='Значение', choices=value)
+    initial_condition = forms.ChoiceField(
+        label='Объект',
+        choices=condition,
+        widget=forms.Select(attrs={'class': 'form-select'})  # Добавляем класс Bootstrap
+    )
+    initial_value = forms.ChoiceField(
+        label='Значение',
+        choices=value,
+        widget=forms.Select(attrs={'class': 'form-select'})  # Добавляем класс Bootstrap
+    )
