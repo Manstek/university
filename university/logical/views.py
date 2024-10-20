@@ -37,9 +37,26 @@ def logical_chain(initial_condition, initial_value, rules):
     return current_states
 
 
+def reverse_chain(target_condition, target_value, rules):
+    found_states = {target_condition: target_value}
+    changes = True
+
+    while changes:
+        changes = False
+        for rule in rules:
+            obj_1, value_1, obj_2, value_2 = rule
+            if obj_2 in found_states and found_states[obj_2] == value_2:
+                if obj_1 not in found_states:
+                    found_states[obj_1] = value_1
+                    changes = True
+
+    return found_states if len(found_states) > 1 else False
+
+
 def home(request):
     result = {}
     error = False
+    reverse_result = {}
     if request.method == 'POST':
         form = LogicChainForm(request.POST)
         if form.is_valid():
@@ -48,6 +65,7 @@ def home(request):
             rules = load_rules(
                 os.path.join(os.path.dirname(__file__), 'rules.txt'))
             result = logical_chain(initial_condition, initial_value, rules)
+            reverse_result = reverse_chain(initial_condition, initial_value, rules)
             if not result:
                 error = 'Ошибка ввода данных.'
 
@@ -58,4 +76,5 @@ def home(request):
                   'index.html',
                   {'form': form,
                    'result': result,
+                   'reverse_result': reverse_result,
                    'error': error})

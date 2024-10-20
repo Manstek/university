@@ -14,7 +14,7 @@
     </form>
 
     {% if result %}
-        <h2>Результат:</h2>
+        <h2>Прямой вывод:</h2>
         <ul>
             {% for condition, value in result.items %}
                 <li>{{ condition }} = {{ value }}</li>
@@ -23,6 +23,15 @@
     {% endif %}
     {% if error %}
         <h2>Ошибка ввода данных.</h2>
+    {% endif %}
+
+    {% if reverse_result %}
+    <h2>Обратный вывод:</h2>
+    <ul>
+        {% for key, value in reverse_result.items %}
+            <li>{{ key }} = {{ value }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
 
     <p>

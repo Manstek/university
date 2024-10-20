@@ -31,6 +31,5 @@ for i in range(0, len(rules), 2):
 
 
 class LogicChainForm(forms.Form):
-    print(value)
     initial_condition = forms.ChoiceField(label='Объект', choices=condition)
     initial_value = forms.ChoiceField(label='Значение', choices=value)
