@@ -2,6 +2,7 @@ from django import forms
 
 import os
 
+
 def load_rules(filename):
     rules = []
     with open(filename, 'r', encoding='utf-8') as file:
@@ -18,14 +19,18 @@ def load_rules(filename):
                 rules.append(rule)
     return rules
 
+
 rules = load_rules(os.path.join(os.path.dirname(__file__), 'rules.txt'))
 condition = []
 value = []
+for i in range(0, len(rules), 1):
+    value.append((rules[i][1], rules[i][1]))
+
 for i in range(0, len(rules), 2):
     condition.append((rules[i][0], rules[i][0]))
-    value.append((rules[i][1], rules[i][1]))
 
 
 class LogicChainForm(forms.Form):
+    print(value)
     initial_condition = forms.ChoiceField(label='Объект', choices=condition)
-    initial_value = forms.ChoiceField(label='Значение' ,choices=value)
+    initial_value = forms.ChoiceField(label='Значение', choices=value)
