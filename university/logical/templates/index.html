@@ -38,6 +38,14 @@
                     <li class="list-group-item">{{ key }} = {{ value }}</li>
                 {% endfor %}
             </ul>
+
+            <p>Статус достижения:
+                {% if target_achieved %}
+                    Достигнуто
+                {% else %}
+                    Не достигнуто
+                {% endif %}
+            </p>
         {% endif %}
 
         <div class="mt-4">
